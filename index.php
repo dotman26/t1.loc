@@ -1,7 +1,9 @@
 <?php
+
+//include( __DIR__ . '/cli/createTableUsers.php');
 try {
     spl_autoload_register(function (string $className) {
-        require_once __DIR__ . '/' . $className . '.php';
+        require_once __DIR__ . '/' . str_replace("\\", "/", $className) . '.php';
     });
 
     $route = $_GET['route'] ?? '';
