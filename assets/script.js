@@ -59,7 +59,7 @@ $(document).ready(function() {
         $.get( url + '?ajax=1', function(data) {
                 let tmp = $(data),
                 title = tmp.find('h1').text();
-
+                url = _this.hasClass('logout') ? '/login' : url,
                 tmp.remove();
 
                 $('table.layout').html(data);

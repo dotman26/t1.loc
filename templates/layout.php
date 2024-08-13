@@ -13,7 +13,7 @@
             Таблица пользователей
         </td>
         <td>
-            <?= !empty($authUser) ? 'Привет, ' . $authUser->name . ' <a class="logout" href="/user/logout">Выход</a>': '<a class="login" href="/user/login">Вход</a>' ?>
+            <?= !empty($authUser) ? 'Привет, ' . $authUser->name . ' <a class="logout" href="/user/logout">Выход</a>' : '<a class="login" href="/user/login">Вход</a>' ?>
         </td>
     </tr>
     <tr>

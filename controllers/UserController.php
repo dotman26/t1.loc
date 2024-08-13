@@ -59,7 +59,7 @@ class UserController
                 $this->view->setVar('success', 'Пользователь ID: ' . $user->id . ' создан');
 
                 if (! isset($_GET['ajax']) || $_GET['ajax'] != '1') {
-                    header( 'Location: ./' . $user->id );
+                    header('Location: ./' . $user->id);
                     exit;
                 }
             }
@@ -146,10 +146,12 @@ class UserController
 
                 Auth::createToken($user);
 
-                if (! isset($_GET['ajax']) || $_GET['ajax'] != '1') {
-                    header('Location: /' );
+                $url = (! isset($_GET['ajax']) || $_GET['ajax'] != '1') ? '/' : '/?ajax=1';
+
+                //if (! isset($_GET['ajax']) || $_GET['ajax'] != '1') {
+                    header('Location: ' . $url );
                     exit;
-                }
+                //}
             } catch (InvalidArgumentException $e) {
                 return $this->view->render('login.php', ['error' => $e->getMessage()], $_GET['ajax'] ?? false);
             }
@@ -165,10 +167,13 @@ class UserController
 
             Auth::deleteToken();
 
-            if (! isset($_GET['ajax']) || $_GET['ajax'] != '1') {
-                header( 'Location: /user/login' );
+            $url = '/user/login' . (! isset($_GET['ajax']) || $_GET['ajax'] != '1' ? '' : '?ajax=1');
+
+            //if (! isset($_GET['ajax']) || $_GET['ajax'] != '1') {
+                header('Location: ' . $url);
                 exit;
-            }
+            //}
+            $this->view->setVar('authUser', null);
         } catch (InvalidArgumentException $e) {
             return $this->view->render('login.php', ['error' => $e->getMessage()], $_GET['ajax'] ?? false);
         }
