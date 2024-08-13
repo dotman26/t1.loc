@@ -3,6 +3,6 @@
     <p>Имя: <?= $user->name ?></p>
     <p>Почта: <?= $user->email ?></p>
     <p>Создан: <?= $user->createdAt ?></p>
-    <?= !empty($authUser) ? '<a class="edit" href="/user/edit/' . $user->id . '">Редактировать</a>' : '' ?>
+    <?= !empty($authUser) && $authUser->id == 1 ? '<a class="edit" href="/user/edit/' . $user->id . '">Редактировать</a>' : '' ?>
     <hr>
 </div>
