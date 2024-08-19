@@ -2,7 +2,6 @@
 
 namespace controllers;
 
-use services\Db;
 use view\View;
 use models\Users;
 use services\Auth;

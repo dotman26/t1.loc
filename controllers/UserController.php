@@ -53,6 +53,7 @@ class UserController
 
             if ($user->validate()) {
                 $user->password = password_hash($user->password, PASSWORD_DEFAULT);
+                $user->createdAt = date('Y-m-d H:i:s');
 
                 $user->save(['name', 'email', 'createdAt', 'password']);
 
@@ -113,7 +114,7 @@ class UserController
         return $this->view->render('update.php', ['user' => $user], $_GET['ajax'] ?? false);
     }
 
-    public function delete(int $userId): ?string
+    public function delete(int $userId): void
     {
         if ($this->user === null) {
             throw new UnauthorizedException('Необходимо авторизоваться');
@@ -133,9 +134,11 @@ class UserController
             throw new NotFoundException('Пользователь с таким ID не существует');
         }
 
-        $user->delete();
+        $id = $user->id;
 
-        $this->view->setVar('success', 'Пользователь ID: ' . $user->id . ' удален');
+        $user->delete();
+        
+        $this->view->setVar('success', 'Пользователь ID: ' . $id . ' удален');
     }
 
     public function login(): ?string

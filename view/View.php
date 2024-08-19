@@ -20,7 +20,7 @@ class View
 
     public function render(string $templateName, array $vars = [], bool $ajax = false, int $code = 200)
     {
-        if ($ajax === true) {
+        if ($ajax == true) {
             $this->renderPartial($templateName, $vars, $code);
         } else {
             $this->renderHtml($templateName, $vars, $code);

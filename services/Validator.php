@@ -116,7 +116,7 @@ class Validator
                 $this->model->addError($attribute, 'Атрибут ' . $attribute . ' должен содержать минимум ' . (int) $this->rules[0] . ' символов');
             }
 
-            if (!empty($this->rules[1]) && $length > $this->rules[1]) {
+            if (!empty($this->rules[1]) && $length > (int) $this->rules[1]) {
                 $this->model->addError($attribute, 'Атрибут ' . $attribute . ' должен содержать максимум ' . (int) $this->rules[1] . ' символов');
             }
         }

@@ -143,7 +143,7 @@ abstract class BaseModel
 
     private function toCamelCase(string $string): string
     {
-        return lcfirst(str_replace('_', '', ucwords($string, '_')));
+        return lcfirst(str_replace('_', '', ucwords(preg_replace('/[^A-z0-9_]/', '', $string), '_')));
     }
 
     private function fromCamelCase(string $string): string
@@ -184,7 +184,7 @@ abstract class BaseModel
                                     continue 3;
                                 }
                             } else {
-                                if ($rule[1] === $v && $k = array_search($key, (array) $rule[0])) {
+                                if ($k = array_search($key, (array) $rule[0])) {
                                     unset($rule[0][$k]);
                                 }
                             }
@@ -192,9 +192,7 @@ abstract class BaseModel
                     }
                 }
                 
-
-                $validator = Validator::createValidator($this, $rule);
-                $validators[] = $validator;
+                $validators[] = Validator::createValidator($this, $rule);
             } else {
                 throw new InvalidConfigException('Неверный конфиг правил валидации');
             }

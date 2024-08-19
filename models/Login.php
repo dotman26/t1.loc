@@ -20,6 +20,14 @@ class Login extends Users
 
     public static function login(array $data): Users
     {
+        $user = new Login();
+        $user->name = $data['name'];
+        $user->password = $data['password'];
+        
+        if (!$user->validate()) {
+            throw new InvalidArgumentException('Ошибка валидации данных');
+        }
+
         $user = Login::findOneByColumn('name', $data['name']);
 
         if ($user === null) {
@@ -31,10 +39,6 @@ class Login extends Users
         }
 
         $user->refreshAuthToken();
-
-        if (!$user->validate()) {
-            throw new InvalidArgumentException('Ошибка валидации данных');
-        }
 
         $user->save(['authToken']);
 
