@@ -21,14 +21,33 @@ abstract class BaseModel
         $camelCase = $this->toCamelCase($name);
 
         $this->$camelCase = $value;
+
+        /*
+        $setter = 'set' . $camelCase;
+
+        if (method_exists($this, $setter)) {
+            $this->$setter($value);
+        } else {
+            throw new UnknownAttributeException('Установка неизвестного атрибута: ' . $name);
+        }
+        */
     }
 
-    public function __get($attribute): string|array|null
+    public function __get($name): string|array|null
     {
-        if (isset($this->$attribute)) {
-            return $this->$attribute;
+        if (isset($this->$name)) {
+            return $this->$name;
         }
         return null;
+
+        /*
+        $getter = 'get' . $name;
+        if (method_exists($this, $getter)) {
+            return $this->$getter();
+        }
+
+        throw new UnknownAttributeException('Получение неизвестного атрибута: ' . $name);
+        */
     }
 
     public static function findById(int $id): ?self
