@@ -53,7 +53,6 @@ class UserController
 
             if ($user->validate()) {
                 $user->password = password_hash($user->password, PASSWORD_DEFAULT);
-                $user->createdAt = date('Y-m-d H:i:s');
 
                 $user->save(['name', 'email', 'createdAt', 'password']);
 
@@ -90,7 +89,7 @@ class UserController
         if (!empty($_POST)) {
             $user->loadFromArray($_POST);
 
-            $attributes = ['name', 'email', 'createdAt'];
+            $attributes = ['name', 'email'];
 
             if ($user->validate(['password' => ['required', 'string']])) {
                 if ($user->password !== '') {
